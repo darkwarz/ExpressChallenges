@@ -5,13 +5,17 @@ var datetime = new Date();
 app.use(express.static('public'));
 
 app.get('/cities', function(req, res){
-  var cities = ['Providence', 'Cranston', 'Pawtucket', 'Warwick', 'Newport'];
+  var cities = ['Providence', 'Cranston', 'North Providence', 'East Providence'];
   res.send(cities);
 });
 
 
+app.get('/date', function(request, response) {
+  response.redirect(datetime)
+})
+
 app.listen(process.env.PORT, function() {
-  console.log('Listening on c9 lvl3');
+  console.log('Listening on c9');
   console.log(datetime);
  });
  
