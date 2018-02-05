@@ -6,12 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cities</title>
 </head>
+
 <body>
     <h1>Cities</h1>
-    <ul class='city-list'></ul>
-        
-</body>
-<script src="app.js" type="text/javascript"></script>
-<script src="jquery.js" type="text/javascript"></script>
+    
+    <select class= "city-list"></select>
+    
+    <button id="city-delete" type="Submit">Delete</button>
+
+<form>
+    <legend>New City</legend>
+    <input name="city" placeholder= "City"><br/>
+    <input name="state" placeholder= "State">
+    <input type="Submit">
+</form>        
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="client.js" type="text/javascript"></script>
+</body>
 </html>

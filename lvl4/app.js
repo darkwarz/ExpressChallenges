@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var datetime = new Date();
+var parseUrlencoded = bodyParser.urlencoded({ extended: false });
 var cities = {
   "Providence": "Rhode Island",
   "Cranston": "Rhode Island",
@@ -13,8 +14,8 @@ var cities = {
 
 app.use(express.static('public'));
 
-app.param('name', function(req, res, next) {
-   var name = req.params.name;
+app.param('city', function(req, res, next) {
+   var name = req.params.city;
    var city = name[0].toUpperCase() + name.slice(1).toLowerCase();
    req.cityName = city;
    next();
@@ -39,29 +40,23 @@ app.get("/cities/:name", function(req, res) {
    }
 });
 
+app.post('/cities', parseUrlencoded, function(req, res) {
+   if (req.body.city.length > 4 || req.body.state.length > 2) {
+      var newCity = req.body;
+      cities[newCity.city] = newCity.state;
+      res.status(201).json(newCity.city);
+   } else {
+      res.status(400,"Not enough characters");
+   }
+});
+
+app.delete('/cities/:city', function(req, res) {
+   delete cities[req.cityName];
+   res.status(200);
+});
 
 app.listen(process.env.PORT, function() {
   console.log('Listening on c9');
   console.log(datetime);
  });
  
-
-
-//chapter 4
-// var bodyParser = require('body-parser');
-// var parseUrlencoded = bodyParser.urlencoded({ extended:false });
-
-// var blocks = { ... };
-
-// app.post('/blocks', parseUrlencoded, function(request, response) {
-//     var newBlock = request.body;
-//     blocks[newBlock.name] = newBlock.description;
-    
-//     response.status(201).json(newBlock.name);
-// });
-
-// app.get('/', function(request, response) {
-//   response.sendFile(__dirname + "/public/index.html");  
-// })
-
-// app.listen(process.env.PORT);
